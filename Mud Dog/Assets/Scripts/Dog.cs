@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Dog : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Dog : MonoBehaviour
     public float rollTime = 0.75f;
     private float rollTimer;
     private Vector3 rollDir;
+    public GameObject barkCone;
     
     // Use this for initialization
     void Start ()
@@ -21,6 +23,7 @@ public class Dog : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        barkCone.SetActive(false);
         if (rollTimer > 0f)
         {
             rb.velocity = rollDir * roll;
@@ -46,15 +49,28 @@ public class Dog : MonoBehaviour
 
     private void Bark()
     {
+        barkCone.SetActive(true);
         Debug.Log("Woof");
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.CompareTag ("Floor") &&  rollTimer > 0f)
+
+        if (collision.collider.CompareTag("Owner"))
         {
-            collision.collider.GetComponent<Renderer>().material.color = new Color(0.39F, 0.26F, 0.12F);
+            GameManager.instance.GameOver();
+        }
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Floor") && rollTimer > 0f)
+        {
+            GameManager.instance.IncreaseMud(other.GetComponent<Renderer>());
 
         }
     }
+
+
 }

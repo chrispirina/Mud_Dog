@@ -14,12 +14,12 @@ public class DebugScript : MonoBehaviour {
     {
         if(Input.GetKeyDown(KeyCode.G))
         {
-            GameManager.instance.GameOver();
+            GameManager.instance.GameWin();
         }
 		
         if(Input.GetKeyDown(KeyCode.M))
         {
-            GameManager.instance.IncreaseMud(10);
+          
         }
 	}
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class TriggerScript : MonoBehaviour {
 
     public float chaseSpeed = 5f;
+    public bool outer;
     private Owner owner;
 
 
@@ -27,9 +28,17 @@ public class TriggerScript : MonoBehaviour {
     {
         if (other.CompareTag("Player"))
         {
-            owner.Chase(chaseSpeed);
+            owner.Chase(chaseSpeed, other.transform);
             Debug.Log("Seen");
             
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag ("Player") && outer)
+        {
+            owner.StopChasing();
+        }
+        
     }
 }

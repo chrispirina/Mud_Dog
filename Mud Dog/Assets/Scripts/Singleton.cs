@@ -25,7 +25,7 @@ public class Singleton <T>:MonoBehaviour where T:MonoBehaviour
     { if (instance_ == null )
         {
             instance_ =this as T;
-            DontDestroyOnLoad (gameObject );
+            
         }
         else
         {
